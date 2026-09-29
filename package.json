@@ -1,5 +1,5 @@
 {
-  "name": "proxyhosts",
+  "name": "proxyconfdump",
   "version": "0.1.0",
   "description": "Read-only export of a self-hosted Nginx Proxy Manager SQLite database into sorted, secret-free JSON that you can commit to a git repository.",
   "keywords": [
@@ -15,7 +15,7 @@
   "author": "Younes Z.",
   "type": "module",
   "bin": {
-    "proxyhosts": "bin/proxyhosts.js"
+    "proxyconfdump": "bin/proxyconfdump.js"
   },
   "exports": {
     ".": "./src/export.js"
@@ -33,12 +33,7 @@
   "scripts": {
     "test": "node --test test/"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Rezarys/proxyhosts.git"
-  },
-  "homepage": "https://github.com/Rezarys/proxyhosts",
-  "bugs": {
-    "url": "https://github.com/Rezarys/proxyhosts/issues"
-  }
+  "repository": "github:Rezarys/proxyconfdump",
+  "homepage": "https://github.com/Rezarys/proxyconfdump",
+  "bugs": "https://github.com/Rezarys/proxyconfdump/issues"
 }

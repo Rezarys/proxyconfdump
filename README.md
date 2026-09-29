@@ -1,7 +1,7 @@
-# proxyhosts
+# proxyconfdump
 
 ```
-npx proxyhosts /path/to/data/database.sqlite > proxy-config.json
+npx proxyconfdump /path/to/data/database.sqlite > proxy-config.json
 ```
 
 Reads the SQLite database of a self-hosted Nginx Proxy Manager instance and writes its configuration as sorted, secret-free JSON that you can commit to a git repository and read in a diff.
@@ -22,10 +22,10 @@ The files under `/data/nginx/` are already plain text, so that is a fair questio
 
 ## Install
 
-No installation needed, `npx proxyhosts` fetches and runs it. To keep it around:
+No installation needed, `npx proxyconfdump` fetches and runs it. To keep it around:
 
 ```
-npm install -g proxyhosts
+npm install -g proxyconfdump
 ```
 
 Node 24 or newer is required, because it uses the built in `node:sqlite` module, which is only stable and available without a flag from Node 24 on. On Node 22 and 23 that module exists behind `--experimental-sqlite`, and this tool has not been tested there. There are no dependencies at all, so there is no install step to compile and nothing else lands in your tree.
@@ -33,7 +33,7 @@ Node 24 or newer is required, because it uses the built in `node:sqlite` module,
 ## Use
 
 ```
-proxyhosts <database.sqlite> [options]
+proxyconfdump <database.sqlite> [options]
 ```
 
 - `--out-dir <dir>` write one file per entry under `<dir>/<table>/` instead of writing to stdout
@@ -46,7 +46,7 @@ proxyhosts <database.sqlite> [options]
 One file per entry is the friendlier shape for a repository, because a change to one host touches one file:
 
 ```
-npx proxyhosts ./data/database.sqlite --out-dir ./config
+npx proxyconfdump ./data/database.sqlite --out-dir ./config
 git add config && git commit -m "proxy config snapshot"
 ```
 
@@ -72,7 +72,7 @@ Certificate private keys are not in this database, they live on disk under `/dat
 
 ```json
 {
-  "format": "proxyhosts/1",
+  "format": "proxyconfdump/1",
   "tables": {
     "proxy_host": [
       {

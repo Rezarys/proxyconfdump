@@ -14,7 +14,7 @@ import { DatabaseSync } from "node:sqlite";
 import { redact } from "./redact.js";
 
 /** Document format marker, bumped when the shape of the output changes. */
-export const FORMAT = "proxyhosts/1";
+export const FORMAT = "proxyconfdump/1";
 
 /**
  * Tables that are exported, in output order.

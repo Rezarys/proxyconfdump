@@ -2,7 +2,7 @@
 /**
  * Command line entry point.
  *
- * proxyhosts <database.sqlite> [--out-dir <dir>] [--tables a,b] [--include-deleted]
+ * proxyconfdump <database.sqlite> [--out-dir <dir>] [--tables a,b] [--include-deleted]
  */
 
 import { mkdirSync, readdirSync, writeFileSync } from "node:fs";
@@ -15,7 +15,7 @@ import { EXPORTED_TABLES, exportDatabase, serialise } from "../src/export.js";
 /** Single source of truth for the version: the manifest. */
 const VERSION = createRequire(import.meta.url)("../package.json").version;
 
-const USAGE = `proxyhosts <database.sqlite> [options]
+const USAGE = `proxyconfdump <database.sqlite> [options]
 
 Reads a self-hosted proxy manager SQLite database and writes its configuration as sorted JSON.
 The database is opened read-only. Values whose column or JSON key looks like a secret are
@@ -145,7 +145,7 @@ function main(argv) {
 	try {
 		options = parseArgs(argv);
 	} catch (error) {
-		process.stderr.write(`proxyhosts: ${error.message}\n\n${USAGE}`);
+		process.stderr.write(`proxyconfdump: ${error.message}\n\n${USAGE}`);
 		return 2;
 	}
 
@@ -170,7 +170,7 @@ function main(argv) {
 			exclude: options.exclude,
 		});
 	} catch (error) {
-		process.stderr.write(`proxyhosts: ${error.message}\n`);
+		process.stderr.write(`proxyconfdump: ${error.message}\n`);
 		return 1;
 	}
 
@@ -178,11 +178,11 @@ function main(argv) {
 		const written = writeSplit(document, options.outDir);
 		const stale = reportStale(document, options.outDir, written);
 		process.stderr.write(
-			`proxyhosts: wrote ${written.length} file(s) under ${options.outDir}\n`,
+			`proxyconfdump: wrote ${written.length} file(s) under ${options.outDir}\n`,
 		);
 		if (stale.length > 0) {
 			process.stderr.write(
-				`proxyhosts: ${stale.length} file(s) left from an earlier export and not rewritten now, delete them yourself if the entries are gone:\n`,
+				`proxyconfdump: ${stale.length} file(s) left from an earlier export and not rewritten now, delete them yourself if the entries are gone:\n`,
 			);
 			for (const name of stale) {
 				process.stderr.write(`  ${name}\n`);

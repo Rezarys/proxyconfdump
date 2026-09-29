@@ -12,7 +12,7 @@ import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 
 export function makeFixture() {
-	const dir = mkdtempSync(join(tmpdir(), "proxyhosts-test-"));
+	const dir = mkdtempSync(join(tmpdir(), "proxyconfdump-test-"));
 	const path = join(dir, "database.sqlite");
 	const db = new DatabaseSync(path);
 

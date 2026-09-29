@@ -3,7 +3,7 @@ import { mkdtempSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
-import { VERSION, fileNameFor, main, parseArgs } from "../bin/proxyhosts.js";
+import { VERSION, fileNameFor, main, parseArgs } from "../bin/proxyconfdump.js";
 import { makeFixture } from "./helpers/fixture.js";
 
 const { path } = makeFixture();
@@ -54,16 +54,16 @@ test("an unknown option is refused with its name", () => {
 });
 
 test("a missing database file is an error, not an empty export", () => {
-	const { code, err } = capture([join(tmpdir(), "proxyhosts-absent.sqlite")]);
+	const { code, err } = capture([join(tmpdir(), "proxyconfdump-absent.sqlite")]);
 	assert.equal(code, 1);
-	assert.match(err, /proxyhosts:/);
+	assert.match(err, /proxyconfdump:/);
 });
 
 test("the default run writes the document to stdout", () => {
 	const { code, out } = capture([path]);
 	assert.equal(code, 0);
 	const document = JSON.parse(out);
-	assert.equal(document.format, "proxyhosts/1");
+	assert.equal(document.format, "proxyconfdump/1");
 	assert.equal(document.tables.proxy_host.length, 3);
 	assert.ok(out.endsWith("\n"));
 });
@@ -103,7 +103,7 @@ test("a file name never escapes its directory", () => {
 });
 
 test("--out-dir writes one readable file per entry", () => {
-	const dir = mkdtempSync(join(tmpdir(), "proxyhosts-out-"));
+	const dir = mkdtempSync(join(tmpdir(), "proxyconfdump-out-"));
 	const { code, err } = capture([path, "--out-dir", dir]);
 	assert.equal(code, 0);
 	assert.match(err, /wrote \d+ file/);
@@ -118,7 +118,7 @@ test("--out-dir writes one readable file per entry", () => {
 });
 
 test("a file left by an earlier export is reported and not deleted", () => {
-	const dir = mkdtempSync(join(tmpdir(), "proxyhosts-stale-"));
+	const dir = mkdtempSync(join(tmpdir(), "proxyconfdump-stale-"));
 	capture([path, "--out-dir", dir]);
 	const stale = join(dir, "proxy_host", "old.99.json");
 	writeFileSync(stale, "{}\n");
