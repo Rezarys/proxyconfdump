@@ -1,0 +1,44 @@
+{
+  "name": "proxyhosts",
+  "version": "0.1.0",
+  "description": "Read-only export of a self-hosted Nginx Proxy Manager SQLite database into sorted, secret-free JSON that you can commit to a git repository.",
+  "keywords": [
+    "nginx-proxy-manager",
+    "sqlite",
+    "export",
+    "backup",
+    "reverse-proxy",
+    "self-hosted",
+    "cli"
+  ],
+  "license": "MIT",
+  "author": "Younes Z.",
+  "type": "module",
+  "bin": {
+    "proxyhosts": "bin/proxyhosts.js"
+  },
+  "exports": {
+    ".": "./src/export.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "test": "node --test test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rezarys/proxyhosts.git"
+  },
+  "homepage": "https://github.com/Rezarys/proxyhosts",
+  "bugs": {
+    "url": "https://github.com/Rezarys/proxyhosts/issues"
+  }
+}
